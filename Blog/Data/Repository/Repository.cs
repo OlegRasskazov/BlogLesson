@@ -9,29 +9,47 @@ namespace Blog.Data.Repository
 {
     public class Repository : IRepository
     {
-        public bool AddPost(Post post)
+        private AppDbContext _ctx;
+
+        public Repository(AppDbContext ctx)
         {
-            throw new NotImplementedException();
+            _ctx = ctx;
+        }
+
+        public void AddPost(Post post)
+        {
+            _ctx.Posts.Add(post);
+            
         } 
 
-        public List<Post> GetAllPostsPost(int Id)
+        public List<Post> GetAllPosts()
         {
-            throw new NotImplementedException();
+            return _ctx.Posts.ToList();
         }
 
         public Post GetPost(int Id)
         {
-            throw new NotImplementedException();
+            return _ctx.Posts.FirstOrDefault(m => m.Id == Id);
         }
 
-        public bool RemovePost(int Id)
+        public void RemovePost(int Id)
         {
-            throw new NotImplementedException();
+            _ctx.Posts.Remove(GetPost(Id));
         }
 
-        public bool UpdatePost(Post post)
+        public void UpdatePost(Post post)
         {
-            throw new NotImplementedException();
+            _ctx.Posts.Update(post);
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            if (await _ctx.SaveChangesAsync() >0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
