@@ -9,7 +9,13 @@
 <body> 
     <div>
         <a asp-controller="Home" asp-action="Index">Home</a>
-        <a asp-controller="Home" asp-action="Edit">Create Post!</a>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-controller="Panel" asp-action="Edit">Create Post!</a>
+        }
+
+        <a asp-controller="Panel" asp-action="Index">Admin panel</a>
+
         @if (!User.Identity.IsAuthenticated)
         {
             <a asp-controller="Auth" asp-action="Login">Sing In</a>
