@@ -21,7 +21,6 @@ namespace Blog
 
             try
             {
-
                 var scope = host.Services.CreateScope();
 
                 var ctx = scope.ServiceProvider.GetRequiredService<AppDbContext>();
