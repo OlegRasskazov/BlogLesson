@@ -1,3 +1,4 @@
 **/Blog/bin/**/*.*
 **/Blog/obj/**/*.*
+**/Blog/wwwroot/content/blog/*.*
 **/.vs

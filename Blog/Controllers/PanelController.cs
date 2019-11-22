@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Blog.Data.FileManager;
 using Blog.Data.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Blog.Models;
+using Blog.ViewModels;
 
 namespace Blog.Controllers
 {
@@ -14,9 +16,13 @@ namespace Blog.Controllers
     public class PanelController : Controller
     {
         private IRepository _repository;
+        private IFileManager _fileManager;
 
-        public PanelController(IRepository repository)
+        public PanelController(
+            IRepository repository,
+            IFileManager fileManager)
         {
+            _fileManager = fileManager;
             _repository = repository;
         }
 
@@ -30,17 +36,33 @@ namespace Blog.Controllers
         public IActionResult Edit(int? id)
         {
             if (id == null)
-                return View(new Post());
+            {
+                return View(new PostViewModel());
+            }
             else
             {
                 var post = _repository.GetPost((int)id);
-                return View(post);
+                return View(new PostViewModel()
+                {
+                    Id = post.Id,
+                    Title = post.Title,
+                    Body = post.Body
+                });
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Post post)
+        public async Task<IActionResult> Edit(PostViewModel postViewModel)
         {
+            var post = new Post()
+            {
+                Id = postViewModel.Id,
+                Title = postViewModel.Title,
+                Body = postViewModel.Body,
+                Image = await _fileManager.SaveImage(postViewModel.Image)
+            };
+
+
             if (post.Id > 0)
                 _repository.UpdatePost(post);
             else
