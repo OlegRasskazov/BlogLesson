@@ -2,7 +2,7 @@
 
 @{}
 
-<h2>@Model.Title</h2>
+@*<h2>@Model.Title</h2>
 
 @if (!String.IsNullOrEmpty(Model.Image))
 {
@@ -10,4 +10,18 @@
     <img src="@imagePath"/>
 }
 
-<p>@Model.Body</p>
+<p>@Model.Body</p>*@
+
+<div class="container">
+    <div class="post no-shadow">
+        @if (!String.IsNullOrEmpty(Model.Image))
+        {
+            var imagePath = $"/Image/{Model.Image}";
+            <img src="@imagePath"/>
+            <span class="title">@Model.Title</span>
+        }
+    </div>
+    <div class="post-body">
+        @Model.Body
+    </div>
+</div>

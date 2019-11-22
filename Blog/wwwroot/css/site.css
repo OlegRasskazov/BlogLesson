@@ -1,0 +1,77 @@
+﻿body {
+    margin: 0;
+    background-color: beige;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+nav {
+    background-color: #142127;
+    height: 50px;
+    width: 100%;
+    text-align: center;
+}
+
+    nav a {
+        display: inline-block;
+        color: white;
+        height: 100%;
+        padding: 15px;
+    }
+
+.main-img {
+    position: relative;
+    height: 300px;
+    background-image: url('../content/static/gg836656.jpg');
+    -ms-background-position: center;
+    background-position: center;
+    -ms-background-size: cover;
+    background-size: cover;
+}
+
+.title {
+    position: absolute;
+    color: white;
+    font-size: 40px;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    top: 30%;
+    text-shadow: 0 0 8px black;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    margin: auto;
+}
+
+.post {
+    margin: 5px;
+    position: relative;
+    display: flex;
+    height: 400px;
+    box-shadow: 0 0 5px black;
+}
+
+    .post img {
+        width: 100%;
+        object-fit: cover;
+    }
+
+.post-body {
+    margin: -5px 5px 0;
+    background-color: white;
+}
+
+.no-shadow {
+    box-shadow: none;
+}
