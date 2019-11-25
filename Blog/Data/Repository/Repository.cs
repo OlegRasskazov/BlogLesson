@@ -27,6 +27,13 @@ namespace Blog.Data.Repository
             return _ctx.Posts.ToList();
         }
 
+        public List<Post> GetAllPosts(string category)
+        {
+            Func<Post, bool> InCategory = (post) => post.Category.ToLower().Equals(category.ToLower());
+
+            return _ctx.Posts.Where(post => InCategory(post)).ToList();
+        }
+
         public Post GetPost(int Id)
         {
             return _ctx.Posts.FirstOrDefault(m => m.Id == Id);
