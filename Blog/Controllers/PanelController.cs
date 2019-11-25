@@ -46,7 +46,8 @@ namespace Blog.Controllers
                 {
                     Id = post.Id,
                     Title = post.Title,
-                    Body = post.Body
+                    Body = post.Body,
+                    CurrentImage = post.Image
                 });
             }
         }
@@ -58,10 +59,13 @@ namespace Blog.Controllers
             {
                 Id = postViewModel.Id,
                 Title = postViewModel.Title,
-                Body = postViewModel.Body,
-                Image = await _fileManager.SaveImage(postViewModel.Image)
+                Body = postViewModel.Body
             };
 
+            if (postViewModel.Image == null)
+                post.Image = postViewModel.CurrentImage;
+            else
+                post.Image = await _fileManager.SaveImage(postViewModel.Image);
 
             if (post.Id > 0)
                 _repository.UpdatePost(post);
@@ -70,7 +74,7 @@ namespace Blog.Controllers
 
             if (await _repository.SaveChangesAsync())
                 return RedirectToAction("Index");
-            return View(post);
+            return View(postViewModel);
         }
 
         [HttpGet]
