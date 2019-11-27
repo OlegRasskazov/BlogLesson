@@ -53,8 +53,10 @@ namespace Blog
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
             }
+
+            app.UseDeveloperExceptionPage();
+            
 
             app.UseStaticFiles();
 
